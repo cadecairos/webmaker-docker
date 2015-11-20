@@ -9,7 +9,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
     echo "WINDOWS DETECTED"
     export PG_VOLUME_PATH=/c/Users/$USER/.config/webmaker/pg_data
-    export MARIADB_VOLUME_PATH=/c/USERS/$USER/.config/webmaker/mariadb_data
+    export MARIADB_VOLUME_PATH=/c/Users/$USER/.config/webmaker/mariadb_data
 fi
 
 docker-compose up $1
