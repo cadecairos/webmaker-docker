@@ -1,0 +1,21 @@
+# This compose file will set up, configure and launch all Webmaker services.
+# It launches the Webmaker API and the Webmaker Oauth 2 provider and the legacy webmaker LoginAPI
+# In order to allow for proper startup order, I split the database services into a separate compose file under /data-services
+
+# The Webmaker API image
+webmaker:
+  image: cade/webmaker-api:latest
+  env_file: compose.webmaker.env
+  net: "host"
+
+# The webmaker ID (OAuth 2) provider
+id:
+  image: cade/webmaker-id:latest
+  env_file: compose.id.env
+  net: "host"
+
+# The legacy Webmaker LoginAPI (soon to be deprecated)
+loginapi:
+  image: cade/legacy-webmaker-login:latest
+  env_file: compose.loginapi.env
+  net: "host"

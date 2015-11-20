@@ -1,0 +1,34 @@
+# This compose file starts up all the database services that Webmaker services need.
+# Its a separate compose file because docker-compose doesn't let you specify dependencies (yet)
+
+# A postgresql container to store all your dev dataz!
+# cade/webmaker-postgres is a slightly customized version of the official postgres container on dockerhub
+# The Dockerfile for it is maintained in this repo, under /webmaker-postgres
+pg:
+  image: cade/webmaker-postgres
+  net: "host"
+  # Mounts the pg_data folder in this repo to the containers filesystem.
+  # pg will store your data here!
+  volumes:
+    - ./pg_data:/var/lib/postgresql/data/pg_data
+  ports:
+    - "5432:5432"
+
+# A MariaDB container for loginAPI (soon to be removed as well)
+mariadb:
+  image: mariadb:10
+  net: "host"
+  env_file: compose.mariadb.env
+  # Mounts the mariadb_data folder in this repo to the containers filesystem.
+  # MariaDB will store your data here!
+  volumes:
+    - ./mariadb_data:/var/lib/mysql
+  ports:
+    - "3306:3306"
+
+# A Redis cache container, for the caching needs of Webmaker API and ID
+redis:
+  image: redis:3
+  net: "host"
+  ports:
+    - "6379:6379"
