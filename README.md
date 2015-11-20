@@ -1,7 +1,7 @@
 # Webmaker Docker
 
 This repo contains all anyone needs to run Webmaker services for local development in just a few commands.
-It eliminates the need to fumble with installing configuring and running database services, and comes with sane defaults for everything.
+It eliminates the need to fumble with installing, configuring, and running database services, and comes with sane defaults for everything.
 
 ## Prerequisites
 All you need is [Docker and Docker Compose](http://docs.docker.com/). You'll find installation instructions for both programs (for Linux, Mac, and Windows) at that link.
@@ -18,7 +18,7 @@ This will be so easy, your mind is about to be blown. Note that the first run wi
 5. Run Webmaker services: `docker-compose up -d`
 
 ## What just happened?
-You're probably wondering what I just asked you to do. Let's take a look at what's going on here. You're probably wondering why I got you to run two docker-compose commands... Believe me, I really wanted to launch everything in one command, but as of writing this [it's not possible](https://github.com/docker/compose/pull/686), and the first `docker-compose` command launches containers that *must* be booted before the containers in the second `docker-compose` command.
+You're probably wondering what I just asked you to do. Let's take a look at what's going on here. You're probably wondering why I got you to run two docker-compose commands... Believe me, I really wanted to launch everything in one command, but as of writing this [it's not possible](https://github.com/docker/compose/pull/686), and the first `docker-compose` command launches containers that **must** be booted before the containers in the second `docker-compose` command.
 
 When we ran `docker-compose up -d` in the data-services directory, we launched three containers using the following images: [cade/webmaker-postgres](https://hub.docker.com/r/cade/webmaker-postgres/), [mariadb:10](https://hub.docker.com/_/mariadb/), and [redis:3](https://hub.docker.com/_/redis/).
 
@@ -32,19 +32,23 @@ I've put the Dockerfiles for these in the [services-dockerfiles](/services-docke
 
 ## What's running where, and what are my creds
 * Postgres is listening on localhost:5432
-  * username, password, and database are all 'webmaker'
+  * **username**: 'webmaker'
+  * **password**: 'webmaker'
+  * **database**: 'webmaker'
 * MariaDB is listening on localhost:3306
-  * username, password and database are all 'wmlogin'
-  * root password is 'root_wmlogin'
+  * **username**: 'wmlogin'
+  * **password**: 'wmlogin'
+  * **database**: 'wmlogin'
+  * **root password** :'root_wmlogin'
 * Redis is listening on localhost:6379
-  * There aren't any credentials to worry about.
+  * **There aren't any credentials to worry about**
 * Webmaker API is listening on localhost:2015
 * Webmaker ID is listening on localhost:1234
   * there's a client and secret already in the database for you
-    * client_id: 'webmaker'
-    * secret: 'webmaker'
-    * all grant types and response types allowed.
-    * redirect_url is 'example.com' - You can manually change it or insert a new one
+    * **client_id**: 'webmaker'
+    * **secret**: 'webmaker'
+    * **all grant types and response types allowed.**
+    * **redirect_url** is 'example.com' - You can manually change it or insert a new one if you desire
 * Legacy Login is listening on localhost:3000
 
 The first time you run things, you'll need to create a user. easiest way is to visit `localhost:1234/signup?localhost:6767/signup?client_id=webmaker&state=state&response_type=code&scopes=user` and create an account.
