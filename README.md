@@ -13,14 +13,14 @@ This will be so easy, your mind is about to be blown. Note that the first run wi
 
 1. Clone this repo: `git clone git@github.com:cadecairos/webmaker-docker`
 2. Change directories into the data-services dir: `cd data-services`
-3. Run the data services: `./run-services.sh` (use mingw on Windows)
+3. Run the data services: `./run-data-services.sh` (use mingw on Windows)
 4. Change directories into the services dir: `cd ../services`
 5. Run Webmaker services: `docker-compose up -d`
 
 ## What just happened?
 You're probably wondering what I just asked you to do. Let's take a look at what's going on here. You're probably wondering why I got you to run two docker-compose commands... Believe me, I really wanted to launch everything in one command, but as of writing this [it's not possible](https://github.com/docker/compose/pull/686), and the first `docker-compose` command launches containers that **must** be booted before the containers in the second `docker-compose` command.
 
-When we ran `run-services.sh` in the data-services directory, we launched three containers using the following images: [cade/webmaker-postgres](https://hub.docker.com/r/cade/webmaker-postgres/), [mariadb:10](https://hub.docker.com/_/mariadb/), and [redis:3](https://hub.docker.com/_/redis/). The reason it is a bash file is to do some platform detection so that we can set the mount volume paths properly.
+When we ran `run-data-services.sh` in the data-services directory, we launched three containers using the following images: [cade/webmaker-postgres](https://hub.docker.com/r/cade/webmaker-postgres/), [mariadb:10](https://hub.docker.com/_/mariadb/), and [redis:3](https://hub.docker.com/_/redis/). The reason it is a bash file is to do some platform detection so that we can set the mount volume paths properly.
 
 [cade/webmaker-postgres](https://hub.docker.com/r/cade/webmaker-postgres/) is an extension of the official [postgres:9.4](https://hub.docker.com/_/postgres/) image. It's customized to have some initialization SQL scripts added to the filesystem that inizialize the schemas and tables that [Webmaker API](https://github.com/mozilla/api.webmaker.org) and [Webmaker ID](https://github.com/mozilla/id.webmaker.org) use. You can find the Dockerfile in this repo, under [webmaker-postgres](/webmaker-postgres)
 
