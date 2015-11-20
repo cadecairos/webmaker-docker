@@ -10,7 +10,7 @@ pg:
   # Mounts the pg_data folder in this repo to the containers filesystem.
   # pg will store your data here!
   volumes:
-    - ./pg_data:/var/lib/postgresql/data/pg_data
+    - ${PG_VOLUME_PATH}:/var/lib/postgresql/data/pg_data
   ports:
     - "5432:5432"
 
@@ -22,7 +22,7 @@ mariadb:
   # Mounts the mariadb_data folder in this repo to the containers filesystem.
   # MariaDB will store your data here!
   volumes:
-    - ./mariadb_data:/var/lib/mysql
+    - ${MARIADB_VOLUME_PATH}:/var/lib/mysql
   ports:
     - "3306:3306"
 
