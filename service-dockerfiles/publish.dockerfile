@@ -1,4 +1,4 @@
-# Webmaker API
+# Publish API
 
 FROM ubuntu:14.04.2
 MAINTAINER Mozilla Foundation <cade@mozillafoundation.org>
@@ -20,7 +20,7 @@ RUN useradd -d /webmaker webmaker
 # set working directory
 WORKDIR /webmaker
 
-# Add webmaker-api source code and dependencies
+# Add publish-api source code and dependencies
 COPY . ./
 
 # Set Default env
@@ -30,8 +30,11 @@ RUN cp env.dist .env
 # and expose noxmox port
 EXPOSE 2016 8001
 
+# for serving project data
+RUN mkdir -p /tmp/mox/test
+
 # fix permissions
-RUN chown -R webmaker:webmaker .
+RUN chown -R webmaker:webmaker . /tmp/mox
 
 # install knex globally
 RUN npm install -g knex \
@@ -40,5 +43,5 @@ RUN npm install -g knex \
 # create webmaker user and directory
 USER webmaker
 
-# Command to execute when starting Webmaker API
-CMD  http-server -p 8001 -s & && npm run migrate && npm start
+# Command to execute when starting Publish container
+CMD  bash -c 'nohup http-server -p 8001 /tmp/mox/test > /dev/null 2>&1 &' && npm run migrate && npm start
