@@ -56,6 +56,9 @@ If you're running Linux then Docker is running on `localhost`.
     * **all grant types and response types allowed.**
     * **redirect_url** is 'example.com' - You can manually change it or insert a new one if you desire
 * Legacy Login is listening on `DOCKER_IP`:3000
+* Publish is listening on `DOCKER_IP`:2016
+  * Projects get served from `DOCKER_IP`:8001
+* Bramble is being served on `DOCKER_IP`:8000
 
 The first time you run things, you'll need to create a user. easiest way is to visit `DOCKER_IP:1234/signup?DOCKER_IP:6767/signup?client_id=webmaker&state=state&response_type=code&scopes=user` and create an account.
 
