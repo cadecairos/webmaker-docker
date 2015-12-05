@@ -13,9 +13,10 @@ This will be so easy, your mind is about to be blown. Note that the first run wi
 
 1. Clone this repo: `git clone git@github.com:cadecairos/webmaker-docker`
 2. Change directories into the data-services dir: `cd data-services`
-3. Run the data services: `./run-data-services.sh` (use mingw on Windows)
+3. Run the data services: `docker-compose up -d` (Remove `-d` flag to run in the foreground.)
 4. Change directories into the services dir: `cd ../services`
 5. Run Webmaker services: `docker-compose up -d`
+6. Confirm all services are up by running `docker ps`. You should see 6 containers with a STATUS of `Up`.
 
 ## What just happened?
 You're probably wondering what I just asked you to do. Let's take a look at what's going on here. You're probably wondering why I got you to run two docker-compose commands... Believe me, I really wanted to launch everything in one command, but as of writing this [it's not possible](https://github.com/docker/compose/pull/686), and the first `docker-compose` command launches containers that **must** be booted before the containers in the second `docker-compose` command.
@@ -31,27 +32,32 @@ The second `docker-compose up -d` we run in `/services` launches the Webmaker se
 I've put the Dockerfiles for these in the [services-dockerfiles](/services-dockerfiles) folder of this repo. There's also a `.dockerignore` file there that's applicable to each project.
 
 ## What's running where, and what are my creds
-* Postgres is listening on localhost:5432
+
+If you're running Windows or OS X you'll need the IP of the Docker VM. To get this, run `docker-machine ip default`.
+
+If you're running Linux then Docker is running on `localhost`.
+
+* Postgres is listening on `DOCKER_IP:5432`
   * **username**: 'webmaker'
   * **password**: 'webmaker'
   * **database**: 'webmaker'
-* MariaDB is listening on localhost:3306
+* MariaDB is listening on `DOCKER_IP:3306`
   * **username**: 'wmlogin'
   * **password**: 'wmlogin'
   * **database**: 'wmlogin'
   * **root password** :'root_wmlogin'
-* Redis is listening on localhost:6379
+* Redis is listening on `DOCKER_IP:6379`
   * **There aren't any credentials to worry about**
-* Webmaker API is listening on localhost:2015
-* Webmaker ID is listening on localhost:1234
+* Webmaker API is listening on `DOCKER_IP:2015`
+* Webmaker ID is listening on `DOCKER_IP:1234`
   * there's a client and secret already in the database for you
     * **client_id**: 'webmaker'
     * **secret**: 'webmaker'
     * **all grant types and response types allowed.**
     * **redirect_url** is 'example.com' - You can manually change it or insert a new one if you desire
-* Legacy Login is listening on localhost:3000
+* Legacy Login is listening on `DOCKER_IP`:3000
 
-The first time you run things, you'll need to create a user. easiest way is to visit `localhost:1234/signup?localhost:6767/signup?client_id=webmaker&state=state&response_type=code&scopes=user` and create an account.
+The first time you run things, you'll need to create a user. easiest way is to visit `DOCKER_IP:1234/signup?DOCKER_IP:6767/signup?client_id=webmaker&state=state&response_type=code&scopes=user` and create an account.
 
 ## Shut down
-To stop the containers, run `docker-compose stop` once in each of `services` and `data-services`
+To stop the containers, run `docker-compose stop` once in each of `services` and `data-services`.

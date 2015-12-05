@@ -1,2 +1,3 @@
 data-services/pg_data/*
 data-services/mariadb_data/*
+.DS_Store
