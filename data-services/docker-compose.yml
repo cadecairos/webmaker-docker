@@ -10,7 +10,7 @@ pg:
   # Mounts the pg_data folder in this repo to the containers filesystem.
   # pg will store your data here!
   volumes:
-    - ${PG_VOLUME_PATH}:/var/lib/postgresql/data/pg_data
+    - ./pg_data:/var/lib/postgresql/data/pg_data
   ports:
     - "5432:5432"
 
@@ -19,10 +19,6 @@ mariadb:
   image: mariadb:10
   net: "host"
   env_file: compose.mariadb.env
-  # Mounts the mariadb_data folder in this repo to the containers filesystem.
-  # MariaDB will store your data here!
-  volumes:
-    - ${MARIADB_VOLUME_PATH}:/var/lib/mysql
   ports:
     - "3306:3306"
 

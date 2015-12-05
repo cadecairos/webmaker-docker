@@ -50,6 +50,9 @@ I've put the Dockerfiles for these in the [services-dockerfiles](/services-docke
     * **all grant types and response types allowed.**
     * **redirect_url** is 'example.com' - You can manually change it or insert a new one if you desire
 * Legacy Login is listening on localhost:3000
+* Publish is listening on localhost:2016
+  * Projects get served from localhost:8001
+* Bramble is being served on localhost:8000
 
 The first time you run things, you'll need to create a user. easiest way is to visit `localhost:1234/signup?localhost:6767/signup?client_id=webmaker&state=state&response_type=code&scopes=user` and create an account.
 

@@ -19,3 +19,13 @@ loginapi:
   image: cade/legacy-webmaker-login:latest
   env_file: compose.loginapi.env
   net: "host"
+
+# Publish API (thimble and x-ray-goggles)
+publish:
+  image: cade/publish-api:latest
+  env_file: compose.publish.env
+  net: "host"
+
+bramble:
+  image: cade/bramble
+  net: "host"
