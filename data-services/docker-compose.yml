@@ -1,6 +1,12 @@
 # This compose file starts up all the database services that Webmaker services need.
 # Its a separate compose file because docker-compose doesn't let you specify dependencies (yet)
 
+data_container:
+  image: ubuntu:trusty
+  volumes:
+    - /var/lib/postgresql/data/pg_data
+    - /var/lib/mysql
+
 # A postgresql container to store all your dev dataz!
 # cade/webmaker-postgres is a slightly customized version of the official postgres container on dockerhub
 # The Dockerfile for it is maintained in this repo, under /webmaker-postgres
@@ -9,8 +15,8 @@ pg:
   net: "host"
   # Mounts the pg_data folder in this repo to the containers filesystem.
   # pg will store your data here!
-  volumes:
-    - ./pg_data:/var/lib/postgresql/data/pg_data
+  volumes_from:
+    - data_container
   ports:
     - "5432:5432"
 
@@ -18,6 +24,8 @@ pg:
 mariadb:
   image: mariadb:10
   net: "host"
+  volumes_from:
+    - data_container
   env_file: compose.mariadb.env
   ports:
     - "3306:3306"
@@ -28,3 +36,4 @@ redis:
   net: "host"
   ports:
     - "6379:6379"
+
