@@ -16,7 +16,7 @@ This will be so easy, your mind is about to be blown. Note that the first run wi
 3. Run the data services: `docker-compose up -d` (Remove `-d` flag to run in the foreground.)
 4. Change directories into the services dir: `cd ../services`
 5. Run Webmaker services: `docker-compose up -d`
-6. Confirm all services are up by running `docker ps`. You should see 6 containers with a STATUS of `Up`.
+6. Confirm all services are up by running `docker ps`.
 
 ## What just happened?
 You're probably wondering what I just asked you to do. Let's take a look at what's going on here. You're probably wondering why I got you to run two docker-compose commands... Believe me, I really wanted to launch everything in one command, but as of writing this [it's not possible](https://github.com/docker/compose/pull/686), and the first `docker-compose` command launches containers that **must** be booted before the containers in the second `docker-compose` command.
